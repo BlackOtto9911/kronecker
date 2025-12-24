@@ -27,7 +27,7 @@ jobs:
       - name: Build Flutter/Flet App
         run: |
           # Собираем exe. Указываем путь к иконке, если нужно
-          flet pack main.py --icon icon.png --name "KroneckerApp"
+          flet pack main.py --icon icon.ico --name "KroneckerApp"
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
