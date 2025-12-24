@@ -26,7 +26,7 @@ jobs:
       - name: Build macOS App
         run: |
           # В macOS разделитель в --add-data это двоеточие (:) вместо точки с запятой (;)
-          flet pack main.py --icon icon.icns --name "KroneckerApp" --add-data "examples.json:."
+          flet pack main.py --name "KroneckerApp" --add-data "examples.json:."
 
       - name: Archive App Bundle
         run: |
