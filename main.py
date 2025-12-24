@@ -21,15 +21,25 @@ load_data_error = False
 def load_examples(data_file_json):
     global examples_data, load_data_error
     try:
-        if os.path.exists(data_file_json):  # ← теперь путь корректный
-            with open(data_file_json, "r", encoding="utf-8") as f:
+        json_path = resource_path(data_file_json)
+        if os.path.exists(json_path):  # ← теперь путь корректный
+            with open(json_path, "r", encoding="utf-8") as f:
                 examples_data = json.load(f)
     except Exception as e:
         load_data_error = True
 
+def resource_path(relative_path):
+    try:
+        # PyInstaller временная папка при --onefile
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(base_path, relative_path)
+
 
 def main(page: ft.Page):
     page.title = "Алгоритм Кронекера"
+    page.window_icon = resource_path("icon.png")
     page.theme_mode = ft.ThemeMode.LIGHT
     page.theme = ft.Theme(
         scrollbar_theme=ft.ScrollbarTheme(thickness=0)
@@ -1072,5 +1082,6 @@ def main(page: ft.Page):
 if __name__ == "__main__":
     load_examples("examples.json")
     ft.app(
-        target=main
+        target=main,
+        assets_dir="."
     )
